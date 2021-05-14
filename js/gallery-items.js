@@ -1,5 +1,4 @@
-// массив объектов
-const images = [
+export default [
     {
       preview:
         'https://cdn.pixabay.com/photo/2019/05/14/16/43/himilayan-blue-poppy-4202825__340.jpg',
@@ -64,46 +63,3 @@ const images = [
       description: 'Lighthouse Coast Sea',
     },
   ];
-// Создание и рендер разметки:
-
-// 1-переменная обращения к пустому списку
-const galleryContainer = document.querySelector('.js-gallery');
-// 2-переменная хранения функции(4)) создания разметки
-const galleryMarkup = createGalleryMarkup(images);
-// 3-вкладываем разметку(2) в пустой список(1)
-galleryContainer.insertAdjacentHTML('afterbegin', galleryMarkup);
-// 4-создаём функцию вписывания разметки
-function createGalleryMarkup(images){
-return images
-.map(({preview,original,description}) =>{
-    return `
-    <li class="gallery__item">
-      <a
-        class="gallery__link"
-        href="${original}" 
-        <img
-          class="gallery__image"
-          src="${preview}"
-          data-source="${original}"  
-          alt="${description}"
-        />
-      </a>
-    </li> 
-    `;
-  })
-  .join('');
-};
-
-
-// Реализация делегирования на галерее ul.js-gallery :
-
-// 5-создаём функцию необходимого действия при клике 
-function onGalleryContainerClick(event) {
- 
-}
-
-// 6- вешаем слушатель событий на весь контейнер(галерею)
-
-galleryContainer.addEventListener('click', onGalleryContainerClick)
-
-// и получение url большого изображения.
