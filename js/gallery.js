@@ -37,26 +37,14 @@ function createGalleryMarkup(gallery) {
 
 galleryContainerRef.insertAdjacentHTML('beforeend', createGalleryMarkup(gallery));
 
-
-// Открытие модального окна по клику на элементе галереи.
-
-function openModal(){
-    modalRef.classList.add('is-open');
-    lightboxOverlayRef.addEventListener('click', onOverlayClick);
-    window.addEventListener('keydown',  onEscapePress);
-};
 // Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
 function closeModal(){
     modalRef.classList.remove('is-open');
     modalImageRef.src = '';
-    lightboxOverlayRef.removeEventListener('click', onOverlayClick);
+    lightboxOverlayRef.removeEventListener('click',closeModal );
     window.removeEventListener('keydown', onEscapePress);
 };
-const onOverlayClick = evt =>{
-    if(evt.currentTarget === evt.target){
-        closeModal();
-    } 
-}
+// Открытие модального окна по клику на элементе галереи.
 // Подмена значения атрибута src элемента img.lightbox__image.
 // Реализация делегирования на галерее ul.js-gallery,  получение url большого изображения.
 function onGalleryContainerClick(evt) {
@@ -68,7 +56,12 @@ function onGalleryContainerClick(evt) {
     
     modalImageRef.src = evt.target.dataset.source;
     modalImageRef.alt = evt.target.alt;
-    openModal()
+    
+    modalRef.classList.add('is-open');
+    lightboxOverlayRef.addEventListener('click',closeModal);
+    window.addEventListener('keydown',  onEscapePress);
+
+    const onCloseButton = closeButtonRef.addEventListener('click',closeModal);
 };
 
 galleryContainerRef.addEventListener('click',onGalleryContainerClick);
@@ -80,6 +73,6 @@ function onEscapePress(evt) {
        closeModal(); 
     }
 };
-const onCloseButton = closeButtonRef.addEventListener('click',closeModal);
+
 
 
